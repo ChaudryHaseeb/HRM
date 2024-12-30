@@ -19,6 +19,7 @@ import { PerformanceReviewController } from './performance-review/performance-re
 import { PerformanceReviewModule } from './performance-review/performance-review.module';
 import { RecruitmentController } from './recruitment/recruitment.controller';
 import { RecruitmentModule } from './recruitment/recruitment.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { RecruitmentModule } from './recruitment/recruitment.module';
     LeaveModule,
     PerformanceReviewModule,
     RecruitmentModule,
+    AuthModule,
   ],
   controllers: [AppController, EmployeeController, DepartmentController, AttendanceController, PayrollController, LeaveController, PerformanceReviewController, RecruitmentController],
   providers: [AppService, DatabaseService],
