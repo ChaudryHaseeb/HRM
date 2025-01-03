@@ -1,28 +1,21 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { UserService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { User } from './user.schema';
 
 @Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+export class UserController {
+  constructor(private readonly userService: UserService) {}
 
-  @Get() // GET /users
-  findAll() {
-    return 'This will return all users';
+  // Route to create a new user
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto): Promise<User> {
+    const existingUser = await this.userService.findUserByEmail(createUserDto.email);
+    if (existingUser) {
+      throw new HttpException('Email already exists', HttpStatus.BAD_REQUEST);
+    }
+    return this.userService.createUser(createUserDto);
   }
 
-  @Post() // POST /users
-  async create(@Body() createUserDto: any) {
-    const user = await this.usersService.create(createUserDto);
-    return `Created user with ID: ${user._id}`;
-  }
-
-  @Get(':id') // GET /users/:id
-  findOne(@Param('id') id: string) {
-    return `This will return user with ID: ${id}`;
-  }
-
-  @Get('test-connection')
-  async testConnection() {
-    return this.usersService.testConnection();
-  }
+  // You can add more routes for other user actions like login, update, etc.
 }

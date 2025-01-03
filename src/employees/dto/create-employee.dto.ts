@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, IsEmail, IsEnum, IsObject, IsDate, IsOptional, IsNumber } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateEmployeeDto {
   @IsNotEmpty()
@@ -32,6 +33,7 @@ export class CreateEmployeeDto {
 
   @IsNotEmpty()
   @IsDate()
+  @Type(() => Date)
   dob: Date;
 
   @IsNotEmpty()
@@ -51,6 +53,7 @@ export class CreateEmployeeDto {
 
   @IsNotEmpty()
   @IsDate()
+  @Type(() => Date)
   joiningDate: Date;
 
   @IsOptional()

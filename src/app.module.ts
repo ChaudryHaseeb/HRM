@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
+import { UserModule } from './users/users.module';
 import { DatabaseService } from './database.service';
 import { EmployeeController } from './employees/employees.controller';
 import { EmployeeModule } from './employees/employee.module';
@@ -20,6 +20,7 @@ import { PerformanceReviewModule } from './performance-review/performance-review
 import { RecruitmentController } from './recruitment/recruitment.controller';
 import { RecruitmentModule } from './recruitment/recruitment.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
-    UsersModule,
+    UserModule,
     EmployeeModule,
     DepartmentModule,
     AttendanceModule,
@@ -41,7 +42,7 @@ import { AuthModule } from './auth/auth.module';
     RecruitmentModule,
     AuthModule,
   ],
-  controllers: [AppController, EmployeeController, DepartmentController, AttendanceController, PayrollController, LeaveController, PerformanceReviewController, RecruitmentController],
+  controllers: [AppController, EmployeeController, DepartmentController, AttendanceController, PayrollController, LeaveController, PerformanceReviewController, RecruitmentController, AuthController],
   providers: [AppService, DatabaseService],
 })
 export class AppModule {}
