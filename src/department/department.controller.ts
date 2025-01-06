@@ -17,6 +17,7 @@ import {
   
     @Post()
     createDepartment(@Body() createDepartmentDto: CreateDepartmentDto) {
+      console.log('body');
       return this.departmentService.create(createDepartmentDto);
     }
   

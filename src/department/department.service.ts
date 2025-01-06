@@ -13,9 +13,15 @@ export class DepartmentService {
 
   async create(createDepartmentDto: CreateDepartmentDto): Promise<Department> {
     const department = new this.departmentModel(createDepartmentDto);
-    return department.save();
+    await department.save();
+  
+    // Populate the managerId field before returning
+    return this.departmentModel
+      .findById(department._id)
+      .populate('managerId')
+      .exec();
   }
-
+  
   async findAll(): Promise<Department[]> {
     return this.departmentModel.find().populate('managerId').exec();
   }

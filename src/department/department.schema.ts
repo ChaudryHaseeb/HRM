@@ -11,6 +11,9 @@ export class Department {
   @Prop({ type: Types.ObjectId, ref: 'Employee', required: true })
   managerId: Types.ObjectId;
 
+  @Prop({ required: false }) // Description is optional
+  description?: string;
+
   @Prop({ required: true, default: Date.now })
   createdAt: Date;
 

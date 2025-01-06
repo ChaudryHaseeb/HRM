@@ -2,11 +2,15 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import mongoose from 'mongoose';
 import { ValidationPipe } from '@nestjs/common';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
+// import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.enableCors({
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -14,8 +18,8 @@ async function bootstrap() {
     }),
   );
 
-  const jwtAuthGuard = app.get(JwtAuthGuard);
-  app.useGlobalGuards(jwtAuthGuard);
+  // const jwtAuthGuard = app.get(JwtAuthGuard);
+  // app.useGlobalGuards(jwtAuthGuard);
   const db = mongoose.connection;
   db.on('connected', () => console.log('✅ MongoDB connected successfully'));
   db.on('error', (err) => console.error('❌ MongoDB connection error:', err));
